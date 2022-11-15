@@ -9,5 +9,5 @@ class Settings:
 
         # Window settings
         self.window_width = 800
-        self.window_height = 700
-        self.bg_color = (2, 2, 171)
+        self.window_height = 675
+        self.bg_color = (2, 2, 2)

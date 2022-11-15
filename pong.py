@@ -2,7 +2,7 @@
 import sys
 import pygame
 from settings import Settings
-from paddles import Paddle1
+from players import Player1, Player2
 from pygame.sprite import Sprite
 
 
@@ -18,14 +18,16 @@ class Pong:
                                                self.settings.window_height))
         pygame.display.set_caption("Pong")
 
-        self.paddle = Paddle1(self)
+        self.player1 = Player1(self)
+        self.player2 = Player2(self)
 
     def run_game(self):
         """The main game loop"""
         while True:
             self._check_events()
             self.screen.fill(self.settings.bg_color)
-            self.paddle.blitme()
+            self.player1.blitme()
+            self.player2.blitme()
 
             # Show the most recent screen
             pygame.display.flip()
@@ -38,6 +40,7 @@ class Pong:
             elif event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_q:
                     sys.exit()
+
 
 if __name__ == '__main__':
     # Make a game instance and run it
