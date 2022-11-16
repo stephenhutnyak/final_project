@@ -14,3 +14,6 @@ class Settings:
 
         # Player settings
         self.player_speed = 1
+
+        # Ball settings
+        self.ball_speed = 0.5

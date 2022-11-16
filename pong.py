@@ -3,6 +3,7 @@ import sys
 import pygame
 from settings import Settings
 from players import Player1, Player2
+from ball import Ball
 # from pygame.sprite import Sprite
 
 
@@ -20,6 +21,7 @@ class Pong:
 
         self.player1 = Player1(self)
         self.player2 = Player2(self)
+        self.ball = Ball(self)
 
     def run_game(self):
         """The main game loop"""
@@ -27,6 +29,7 @@ class Pong:
             self._check_events()
             self.player1.update()
             self.player2.update()
+            self.ball.update()
             self._update_screen()
 
     def _update_screen(self):
@@ -34,6 +37,7 @@ class Pong:
         self.screen.fill(self.settings.bg_color)
         self.player1.blitme()
         self.player2.blitme()
+        self.ball.blitme()
 
         # Show the most recent screen
         pygame.display.flip()
