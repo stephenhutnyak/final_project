@@ -8,8 +8,8 @@ class Ball:
 
     def __init__(self, pong_game):
         """Initialize the ball's stuff"""
-        self.player1 = Player1(self)
-        self.player2 = Player2(self)
+        self.player1 = Player1(pong_game)
+        self.player2 = Player2(pong_game)
         self.screen = pong_game.screen
         self.settings = pong_game.settings
         self.screen_rect = pong_game.screen.get_rect()
