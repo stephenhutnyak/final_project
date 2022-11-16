@@ -2,6 +2,7 @@ import pygame
 from players import Player1, Player2
 from settings import Settings
 
+
 class Ball:
     """A class for our ball"""
 
@@ -40,9 +41,9 @@ class Ball:
         """Update the position of the ball"""
         collide1 = self.rect.colliderect(self.player1)
         collide2 = self.rect.colliderect(self.player2)
+        if self.check_collision():
+            self.settings.ball_direction *= -1
 
-        self.y += self.settings.ball_speed * ball_direction
+        self.y += (self.settings.ball_speed *
+                   self.settings.ball_direction)
         self.rect.y = self.y
-
-        if collide1 or collide2:
-
