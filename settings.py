@@ -17,3 +17,5 @@ class Settings:
 
         # Ball settings
         self.ball_speed = 0.5
+        self.ball_direction = 1
+
