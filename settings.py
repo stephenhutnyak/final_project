@@ -11,3 +11,6 @@ class Settings:
         self.window_width = 800
         self.window_height = 675
         self.bg_color = (2, 2, 2)
+
+        # Player settings
+        self.player_speed = 1

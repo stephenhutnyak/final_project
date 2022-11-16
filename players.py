@@ -1,4 +1,5 @@
 import pygame
+from settings import Settings
 
 
 class Player1:
@@ -6,22 +7,39 @@ class Player1:
 
     def __init__(self, pong_game):
         """Initialize the player and set its starting position"""
-        self.screen1 = pong_game.screen
+        self.screen = pong_game.screen
         self.settings = pong_game.settings
-        self.screen_rect1 = pong_game.screen.get_rect()
+        self.screen_rect = pong_game.screen.get_rect()
 
         # Load the player image
-        self.image1 = pygame.image.load("images/PNG/Blue/characterBlue (1).png")
-        self.image1 = pygame.transform.scale(self.image1, (40, 100))
-        self.image1 = pygame.transform.rotate(self.image1, 90)
-        self.rect1 = self.image1.get_rect()
+        self.image = pygame.image.load("images/PNG/Blue/characterBlue (1).png")
+        self.image = pygame.transform.scale(self.image, (40, 100))
+        self.image = pygame.transform.rotate(self.image, 90)
+        self.rect = self.image.get_rect()
 
         # Start the player at the bottom center of the screen,
-        self.rect1.midbottom = self.screen_rect1.midbottom
+        self.rect.midbottom = self.screen_rect.midbottom
+
+        # Store a decimal value for the player's position
+        self.x = float(self.rect.x)
+
+        # Movement flags
+        self.moving_right = False
+        self.moving_left = False
 
     def blitme(self):
-        """Draw the paddle at its current location"""
-        self.screen1.blit(self.image1, self.rect1)
+        """Draw the player at its current location"""
+        self.screen.blit(self.image, self.rect)
+
+    def update(self):
+        """Update the x value of the player"""
+        if self.moving_right:
+            self.x += self.settings.player_speed
+        if self.moving_left:
+            self.x -= self.settings.player_speed
+
+        # Update rect object from self.x
+        self.rect.x = self.x
 
 
 class Player2:
@@ -29,18 +47,35 @@ class Player2:
 
     def __init__(self, pong_game):
         """Initialize top player"""
-        self.screen2 = pong_game.screen
-        self.screen_rect2 = pong_game.screen.get_rect()
+        self.screen = pong_game.screen
+        self.settings = pong_game.settings
+        self.screen_rect = pong_game.screen.get_rect()
 
         # Load the player image
-        self.image2 = pygame.image.load("images/PNG/Red/characterRed (1).png")
-        self.image2 = pygame.transform.scale(self.image2, (40, 100))
-        self.image2 = pygame.transform.rotate(self.image2, -90)
-        self.rect2 = self.image2.get_rect()
+        self.image = pygame.image.load("images/PNG/Red/characterRed (1).png")
+        self.image = pygame.transform.scale(self.image, (40, 100))
+        self.image = pygame.transform.rotate(self.image, -90)
+        self.rect = self.image.get_rect()
 
-        # Start the player at the bottom center of the screen,
-        self.rect2.midtop = self.screen_rect2.midtop
+        # Start the player at the top center of the screen
+        self.rect.midtop = self.screen_rect.midtop
+
+        # Store a decimal value for the player's position
+        self.x = float(self.rect.x)
+
+        # Movement flags
+        self.moving_right = False
+        self.moving_left = False
 
     def blitme(self):
-        """Draw the paddle at its current location"""
-        self.screen2.blit(self.image2, self.rect2)
+        """Draw the player at its current location"""
+        self.screen.blit(self.image, self.rect)
+
+    def update(self):
+        if self.moving_right:
+            self.x += self.settings.player_speed
+        if self.moving_left:
+            self.x -= self.settings.player_speed
+
+        # Update rect object form self.x
+        self.rect.x = self.x
