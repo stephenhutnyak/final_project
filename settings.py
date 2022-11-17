@@ -13,9 +13,11 @@ class Settings:
         self.bg_color = (2, 2, 2)
 
         # Player settings
-        self.player_speed = 1
+        self.player_speed = 0.5
 
         # Ball settings
-        self.ball_speed = 0.5
-        self.ball_direction = 1
+        self.ball_speed_y = 0.5
+        self.ball_speed_x = 0.5
+        self.ball_direction_y = 1
+        self.ball_direction_x = 1
 
