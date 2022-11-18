@@ -22,6 +22,7 @@ class Player1:
 
         # Store a decimal value for the player's position
         self.x = float(self.rect.x)
+        self.y = float(self.rect.y)
 
         # Movement flags
         self.moving_right = False

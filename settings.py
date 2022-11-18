@@ -8,8 +8,8 @@ class Settings:
         """Initialize"""
 
         # Window settings
-        self.window_width = 800
-        self.window_height = 675
+        self.window_width = 655
+        self.window_height = 710
         self.bg_color = (2, 2, 2)
 
         # Player settings

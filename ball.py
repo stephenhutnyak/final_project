@@ -1,5 +1,4 @@
 import pygame
-from players import Player1, Player2
 from settings import Settings
 
 
@@ -8,8 +7,6 @@ class Ball:
 
     def __init__(self, pong_game):
         """Initialize the ball's stuff"""
-        self.player1 = Player1(pong_game)
-        self.player2 = Player2(pong_game)
         self.screen = pong_game.screen
         self.settings = pong_game.settings
         self.screen_rect = pong_game.screen.get_rect()
@@ -31,10 +28,10 @@ class Ball:
         """Draw the ball at its current location"""
         self.screen.blit(self.image, self.rect)
 
-    def check_collision_player(self):
+    def check_collision_player(self, player_rect_list):
         """Check to see if the ball needs to bounce"""
-        if self.rect.colliderect(self.player1.rect) or \
-                self.rect.colliderect(self.player2.rect):
+        if self.rect.colliderect(player_rect_list[0]) or \
+                self.rect.colliderect(player_rect_list[1]):
             return True
         else:
             return False
@@ -45,9 +42,9 @@ class Ball:
                 self.rect.left <= self.screen_rect.left:
             return True
 
-    def update(self):
+    def update(self, player_rect_list):
         """Update the position of the ball"""
-        if self.check_collision_player():
+        if self.check_collision_player(player_rect_list):
             self.settings.ball_direction_y *= -1
             self.move_x = True
 

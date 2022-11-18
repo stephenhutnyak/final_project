@@ -29,7 +29,7 @@ class Pong:
             self._check_events()
             self.player1.update()
             self.player2.update()
-            self.ball.update()
+            self.ball.update([self.player1.rect, self.player2.rect])
             self._update_screen()
 
     def _update_screen(self):
