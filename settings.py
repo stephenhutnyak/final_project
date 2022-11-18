@@ -1,5 +1,6 @@
 import sys
 import pygame
+import random
 
 class Settings:
     """Settings for the game"""
@@ -17,7 +18,7 @@ class Settings:
 
         # Ball settings
         self.ball_speed_y = 0.5
-        self.ball_speed_x = 0.5
+        self.ball_speed_x = 0.25
         self.ball_direction_y = 1
-        self.ball_direction_x = 1
+        self.ball_direction_x = random.randint(-1, 1)
 

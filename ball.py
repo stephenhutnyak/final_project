@@ -28,6 +28,12 @@ class Ball:
         """Draw the ball at its current location"""
         self.screen.blit(self.image, self.rect)
 
+    def update(self, player_rect_list):
+        """Update the position of the ball"""
+        self.change_direction(player_rect_list)
+        self.update_x()
+        self.update_y()
+
     def check_collision_player(self, player_rect_list):
         """Check to see if the ball needs to bounce"""
         if self.rect.colliderect(player_rect_list[0]) or \
@@ -42,27 +48,22 @@ class Ball:
                 self.rect.left <= self.screen_rect.left:
             return True
 
-    def update(self, player_rect_list):
-        """Update the position of the ball"""
-        if self.check_collision_player(player_rect_list):
-            self.settings.ball_direction_y *= -1
-            self.move_x = True
-
-        if self.check_collision_wall():
-            self.settings.ball_direction_x *= -1
-
-        self.update_x()
-        self.update_y()
-
     def update_x(self):
         """Function to move the ball left and right"""
-        if self.move_x:
-            self.x += (self.settings.ball_speed_x *
-                       self.settings.ball_direction_x)
-            self.rect.x = self.x
+        self.x += (self.settings.ball_speed_x *
+                   self.settings.ball_direction_x)
+        self.rect.x = self.x
 
     def update_y(self):
         """Function to move the ball up and down"""
         self.y += (self.settings.ball_speed_y *
                    self.settings.ball_direction_y)
         self.rect.y = self.y
+
+    def change_direction(self, player_rect_list):
+        """Change the direction of the ball"""
+        if self.check_collision_player(player_rect_list):
+            self.settings.ball_direction_y *= -1
+
+        if self.check_collision_wall():
+            self.settings.ball_direction_x *= -1
