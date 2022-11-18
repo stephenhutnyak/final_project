@@ -22,3 +22,6 @@ class Settings:
         self.ball_direction_y = 1
         self.ball_direction_x = random.randint(-1, 1)
 
+        # Sounds
+        self.player_bounce_sound = pygame.mixer.Sound("sounds/Impact/impactGeneric_light_000.ogg")
+        self.wall_bounce_sound = pygame.mixer.Sound("sounds/Impact/impactGeneric_light_004.ogg")

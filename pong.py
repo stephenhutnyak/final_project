@@ -76,6 +76,7 @@ class Pong:
         elif event.key == pygame.K_a:
             self.player2.moving_left = False
 
+
 if __name__ == '__main__':
     # Make a game instance and run it
     pong_game = Pong()
