@@ -1,13 +1,6 @@
 import pygame
-from pygame.sprite import Sprite
 
-pygame.init()
-
-TILE_SIZE = 64
-WINDOW_WIDTH = 10 * TILE_SIZE
-WINDOW_HEIGHT = 8 * TILE_SIZE
-
-# 0 is grass, 1 is mud, 2 is sand
+# 0 is grass, 1 is dirt 2 is sand
 grid = [
     [0, 0, 1, 1, 2, 2, 1, 1, 0, 0, ],
     [0, 0, 1, 1, 2, 2, 1, 1, 0, 0, ],
@@ -19,27 +12,24 @@ grid = [
     [0, 0, 1, 1, 2, 2, 1, 1, 0, 0, ],
 ]
 
-# define images for background
-grass = pygame.image.load("images/Environment/grass.png")
-mud = pygame.image.load("images/Environment/mud.png")
-sand = pygame.image.load("images/Environment/sand.png")
+TILE_SIZE = 128
 
-# grab the dimensions of our tile rectangle
+# define images for our background
+grass = pygame.image.load("images/Retina/tileGrass1.png")
+dirt = pygame.image.load("images/Retina/tileSand1.png")
+sand = pygame.image.load("images/Retina/tileSand_roadNorth.png")
+
+soils = [grass, dirt, sand]
+
+# grab the dimension of our tile rectangle
 tile_rect = grass.get_rect()
 
-# draw screen with background
-screen = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
 
-width_loc = 0
-height_loc = 0
-
-# draw each tile onto background
-for row in grid:
-    for i in row:
-        # blit the correct tile onto background
-        screen.blit(soils[i], (width_loc,height_loc))
-        width_loc += width_loc += TILE_SIZE
-    height_loc += TILE_SIZE
-    width_loc = 0
-
-pygame.display.flip()
+def draw_background(bg_size):
+    bg = pygame.Surface(bg_size)
+    # draw each tile onto our background
+    for r, grid_list in enumerate(grid):
+        for c, grid_element in enumerate(grid_list):
+            # blit the correct tile onto our screen
+            bg.blit(soils[grid_element], (c*TILE_SIZE, r*TILE_SIZE))
+    return bg

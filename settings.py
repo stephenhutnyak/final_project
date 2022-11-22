@@ -9,8 +9,9 @@ class Settings:
         """Initialize"""
 
         # Window settings
-        self.window_width = 655
-        self.window_height = 710
+        self.tile_size = 12
+        self.window_width = 700
+        self.window_height = 700
         self.bg_color = (2, 2, 2)
 
         # Player settings
@@ -25,3 +26,6 @@ class Settings:
         # Sounds
         self.player_bounce_sound = pygame.mixer.Sound("sounds/Impact/impactGeneric_light_000.ogg")
         self.wall_bounce_sound = pygame.mixer.Sound("sounds/Impact/impactGeneric_light_004.ogg")
+
+# Helping Hand
+    # 11/17 Helped Thomas Bui with centering image.rect on another image.rect

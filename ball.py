@@ -1,4 +1,5 @@
 import pygame
+from pygame.sprite import Sprite
 from settings import Settings
 
 
@@ -36,9 +37,14 @@ class Ball:
 
     def check_collision_player(self, player_rect_list):
         """Check to see if the ball needs to bounce"""
-        if self.rect.colliderect(player_rect_list[0]) or \
-                self.rect.colliderect(player_rect_list[1]):
+        if self.rect.colliderect(player_rect_list[0]):
             return True
+        elif self.rect.colliderect(player_rect_list[1]):
+            return True
+
+    # def check_collision_loc_player(self):
+        # """Check where on the player the ball bounces"""
+        # if self.rect.
 
     def check_collision_wall(self):
         """Check if there's a collision with the wall"""
