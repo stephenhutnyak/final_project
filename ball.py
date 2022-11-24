@@ -1,3 +1,5 @@
+import time
+
 import pygame
 from pygame.sprite import Sprite
 from settings import Settings
@@ -30,10 +32,10 @@ class Ball:
 
     def update(self, player_rect_list):
         """Update the position of the ball"""
+        self.check_point()
         self.change_direction(player_rect_list)
         self.update_x()
         self.update_y()
-        self.check_point()
 
     def check_collision_player(self, player_rect_list):
         """Check to see if the ball needs to bounce"""
@@ -57,6 +59,9 @@ class Ball:
         if self.rect.top > self.screen_rect.bottom or \
                 self.rect.bottom < self.screen_rect.top:
             self.rect.center = self.screen_rect.center
+            self.y = float(self.rect.y)
+            self.x = float(self.rect.x)
+            pygame.time.wait(1000)
 
     def update_x(self):
         """Function to move the ball left and right"""
