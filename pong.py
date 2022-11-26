@@ -4,6 +4,7 @@ import pygame
 from settings import Settings
 from players import Player1, Player2
 from ball import Ball
+from button import PlayButton
 # from pygame.sprite import Sprite
 
 
@@ -25,14 +26,22 @@ class Pong:
 
         self.screen_rect = self.screen.get_rect()
 
+        self.game_active = False
+
+        # Make Play button
+        self.play_button = PlayButton(self, "Play")
+        self.mouse_pos = pygame.mouse.get_pos()
+
     def run_game(self):
         """The main game loop"""
         while True:
             self._check_events()
-            self.player1.update()
-            self.player2.update()
-            self.ball.update([self.player1.rect, self.player2.rect])
-            self._update_screen()
+
+            if self.game_active:
+                self.player1.update()
+                self.player2.update()
+                self.ball.update([self.player1.rect, self.player2.rect])
+                self._update_screen()
 
     def _update_screen(self):
         """Everything updating the screen"""
@@ -40,6 +49,9 @@ class Pong:
         self.player1.blitme()
         self.player2.blitme()
         self.ball.blitme()
+
+        if not self.game_active:
+            self.play_button.draw_button()
 
         # Show the most recent screen
         pygame.display.flip()
@@ -53,6 +65,9 @@ class Pong:
                 self._check_keydown_events(event)
             elif event.type == pygame.KEYUP:
                 self._check_keyup_events(event)
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                self.check_mouse_events()
+
         self.check_point()
 
     def _check_keydown_events(self, event):
@@ -78,6 +93,15 @@ class Pong:
             self.player2.moving_right = False
         elif event.key == pygame.K_a:
             self.player2.moving_left = False
+
+    def check_mouse_events(self):
+        """Check for any mouse events"""
+        self.check_play_button()
+
+    def check_play_button(self):
+        """Start a new game when the players click Play"""
+        if self.play_button.rect.collidepoint(self.mouse_pos):
+            self.game_active = True
 
     def check_point(self):
         """Check to see if the ball leaves the screen"""
