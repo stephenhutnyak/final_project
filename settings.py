@@ -12,7 +12,7 @@ class Settings:
         self.tile_size = 12
         self.window_width = 700
         self.window_height = 700
-        self.bg_color = (2, 2, 2)
+        self.bg_color = (15, 15, 15)
 
         # Player settings
         self.player_speed = 0.5

@@ -32,7 +32,6 @@ class Ball:
 
     def update(self, player_rect_list):
         """Update the position of the ball"""
-        self.check_point()
         self.change_direction(player_rect_list)
         self.update_x()
         self.update_y()
@@ -46,22 +45,13 @@ class Ball:
 
     # def check_collision_loc_player(self):
         # """Check where on the player the ball bounces"""
-        # if self.rect.
+        # if self.rect.bottom == self.
 
     def check_collision_wall(self):
         """Check if there's a collision with the wall"""
         if self.rect.right >= self.screen_rect.right or \
                 self.rect.left <= self.screen_rect.left:
             return True
-
-    def check_point(self):
-        """Check to see if the ball leaves the screen"""
-        if self.rect.top > self.screen_rect.bottom or \
-                self.rect.bottom < self.screen_rect.top:
-            self.rect.center = self.screen_rect.center
-            self.y = float(self.rect.y)
-            self.x = float(self.rect.x)
-            pygame.time.wait(1000)
 
     def update_x(self):
         """Function to move the ball left and right"""

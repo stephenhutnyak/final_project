@@ -23,6 +23,8 @@ class Pong:
         self.player2 = Player2(self)
         self.ball = Ball(self)
 
+        self.screen_rect = self.screen.get_rect()
+
     def run_game(self):
         """The main game loop"""
         while True:
@@ -51,6 +53,7 @@ class Pong:
                 self._check_keydown_events(event)
             elif event.type == pygame.KEYUP:
                 self._check_keyup_events(event)
+        self.check_point()
 
     def _check_keydown_events(self, event):
         """Check for keydown events"""
@@ -75,6 +78,28 @@ class Pong:
             self.player2.moving_right = False
         elif event.key == pygame.K_a:
             self.player2.moving_left = False
+
+    def check_point(self):
+        """Check to see if the ball leaves the screen"""
+        if self.ball.rect.top > self.screen_rect.bottom or \
+                self.ball.rect.bottom < self.screen_rect.top:
+
+            # Ball
+            self.ball.rect.center = self.screen_rect.center
+            self.ball.y = float(self.ball.rect.y)
+            self.ball.x = float(self.ball.rect.x)
+
+            # Player1
+            self.player1.rect.midbottom = self.screen_rect.midbottom
+            self.player1.x = float(self.player1.rect.x)
+            self.player1.y = float(self.player1.rect.y)
+
+            # Player2
+            self.player2.rect.midtop = self.screen_rect.midtop
+            self.player2.x = float(self.player2.rect.x)
+            self.player2.y = float(self.player2.rect.y)
+
+            pygame.time.wait(500)
 
 
 if __name__ == '__main__':
