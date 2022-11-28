@@ -13,7 +13,7 @@ class PlayButton:
         self.width, self.height = 200, 50
         self.button_color = (0, 255, 0)
         self.text_color = (255, 255, 255)
-        self.font = pygame.font.SysFont(None, 48)
+        self.font = pygame.font.SysFont(None, 30)
 
         # Build rect object and center
         self.rect = pygame.Rect(0, 0, self.width, self.height)
@@ -33,4 +33,3 @@ class PlayButton:
         """Draw blank button and then draw"""
         self.screen.fill(self.button_color, self.rect)
         self.screen.blit(self.msg_image, self.msg_image_rect)
-

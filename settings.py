@@ -26,6 +26,7 @@ class Settings:
         # Sounds
         self.player_bounce_sound = pygame.mixer.Sound("sounds/Impact/impactGeneric_light_000.ogg")
         self.wall_bounce_sound = pygame.mixer.Sound("sounds/Impact/impactGeneric_light_004.ogg")
+        self.point_sound = pygame.mixer.Sound("sounds/Voice/you_lose.ogg")
 
 # Helping Hand
     # 11/17 Helped Thomas Bui with centering image.rect on another image.rect

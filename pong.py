@@ -26,14 +26,16 @@ class Pong:
 
         self.screen_rect = self.screen.get_rect()
 
+        # Set game status
         self.game_active = False
 
         # Make Play button
-        self.play_button = PlayButton(self, "Play")
+        self.play_button = PlayButton(self, "Play (Spacebar)")
         self.mouse_pos = pygame.mouse.get_pos()
 
     def run_game(self):
         """The main game loop"""
+
         while True:
             self._check_events()
 
@@ -41,7 +43,7 @@ class Pong:
                 self.player1.update()
                 self.player2.update()
                 self.ball.update([self.player1.rect, self.player2.rect])
-                self._update_screen()
+            self._update_screen()
 
     def _update_screen(self):
         """Everything updating the screen"""
@@ -66,7 +68,8 @@ class Pong:
             elif event.type == pygame.KEYUP:
                 self._check_keyup_events(event)
             elif event.type == pygame.MOUSEBUTTONDOWN:
-                self.check_mouse_events()
+                mouse_pos = pygame.mouse.get_pos()
+                self.check_mouse_events(mouse_pos)
 
         self.check_point()
 
@@ -82,6 +85,8 @@ class Pong:
             self.player2.moving_right = True
         elif event.key == pygame.K_a:
             self.player2.moving_left = True
+        if event.key == pygame.K_SPACE:
+            self.game_active = True
 
     def _check_keyup_events(self, event):
         """Check for keyup events"""
@@ -94,19 +99,21 @@ class Pong:
         elif event.key == pygame.K_a:
             self.player2.moving_left = False
 
-    def check_mouse_events(self):
+    def check_mouse_events(self, mouse_pos):
         """Check for any mouse events"""
-        self.check_play_button()
+        self.check_play_button(mouse_pos)
 
-    def check_play_button(self):
+    def check_play_button(self, mouse_pos):
         """Start a new game when the players click Play"""
-        if self.play_button.rect.collidepoint(self.mouse_pos):
+        if self.play_button.rect.collidepoint(mouse_pos):
             self.game_active = True
 
     def check_point(self):
         """Check to see if the ball leaves the screen"""
         if self.ball.rect.top > self.screen_rect.bottom or \
                 self.ball.rect.bottom < self.screen_rect.top:
+
+            pygame.mixer.Sound.play(self.settings.point_sound)
 
             # Ball
             self.ball.rect.center = self.screen_rect.center
@@ -124,6 +131,8 @@ class Pong:
             self.player2.y = float(self.player2.rect.y)
 
             pygame.time.wait(500)
+
+            self.game_active = False
 
 
 if __name__ == '__main__':
