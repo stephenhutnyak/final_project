@@ -5,7 +5,7 @@ from settings import Settings
 from players import Player1, Player2
 from ball import Ball
 from button import PlayButton
-# from pygame.sprite import Sprite
+from power_up import PowerUp
 
 
 # Main game class
@@ -23,15 +23,19 @@ class Pong:
         self.player1 = Player1(self)
         self.player2 = Player2(self)
         self.ball = Ball(self)
+        self.power_up = PowerUp(self)
 
         self.screen_rect = self.screen.get_rect()
 
         # Set game status
         self.game_active = False
 
-        # Make Play button
+        # Play button
         self.play_button = PlayButton(self, "Play (Spacebar)")
         self.mouse_pos = pygame.mouse.get_pos()
+
+        # Power ups
+        self.power_ups = pygame.sprite.Group()
 
     def run_game(self):
         """The main game loop"""
@@ -51,6 +55,7 @@ class Pong:
         self.player1.blitme()
         self.player2.blitme()
         self.ball.blitme()
+        # self.power_ups.draw(self.screen)
 
         if not self.game_active:
             self.play_button.draw_button()
@@ -87,6 +92,10 @@ class Pong:
             self.player2.moving_left = True
         if event.key == pygame.K_SPACE:
             self.game_active = True
+        # if event.key == pygame.K_p:
+            # self.create_power_up()
+        # if event.key == pygame.K_o:
+            # self.remove_power_up()
 
     def _check_keyup_events(self, event):
         """Check for keyup events"""
@@ -133,6 +142,19 @@ class Pong:
             pygame.time.wait(500)
 
             self.game_active = False
+
+    def check_power_up(self):
+        """Check to see if the ball collided with a power up"""
+
+    def create_power_up(self):
+        """Create a power up and add it to the group"""
+        new_power_up = PowerUp(self)
+        self.power_ups.add(new_power_up)
+
+    def remove_power_up(self):
+        """Update the powerups and delete when they collide with the ball"""
+        for power_up in self.power_ups.copy():
+            self.power_ups.remove(power_up)
 
 
 if __name__ == '__main__':

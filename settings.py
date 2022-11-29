@@ -1,6 +1,6 @@
-import sys
 import pygame
 import random
+
 
 class Settings:
     """Settings for the game"""
@@ -22,6 +22,12 @@ class Settings:
         self.ball_speed_x = 0.25
         self.ball_direction_y = 1
         self.ball_direction_x = random.randint(-1, 1)
+
+        # Powerup settings
+        self.power_up_width = 50
+        self.power_up_height = 50
+        self.power_up_x = random.randint(0, self.window_width)
+        self.power_up_y = random.randint(100, self.window_height - 100)
 
         # Sounds
         self.player_bounce_sound = pygame.mixer.Sound("sounds/Impact/impactGeneric_light_000.ogg")

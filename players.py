@@ -27,6 +27,9 @@ class Player1:
         self.moving_right = False
         self.moving_left = False
 
+        # Build rects for the sides of the players
+        self.right_rect = pygame.Rect(0, 0, 40, 50)
+
     def blitme(self):
         """Draw the player at its current location"""
         self.screen.blit(self.image, self.rect)

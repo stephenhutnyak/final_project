@@ -1,8 +1,4 @@
-import time
-
 import pygame
-from pygame.sprite import Sprite
-from settings import Settings
 
 
 class Ball:
