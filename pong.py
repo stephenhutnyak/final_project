@@ -55,7 +55,8 @@ class Pong:
         self.player1.blitme()
         self.player2.blitme()
         self.ball.blitme()
-        # self.power_ups.draw(self.screen)
+        for power_up in self.power_ups:
+            pygame.draw.rect(self.screen, self.power_up.color, power_up.rect)
 
         if not self.game_active:
             self.play_button.draw_button()
@@ -65,6 +66,9 @@ class Pong:
 
     def _check_events(self):
         """Check for any events that may occur"""
+        self.check_point()
+        self.check_power_up()
+
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 sys.exit()
@@ -75,8 +79,6 @@ class Pong:
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 mouse_pos = pygame.mouse.get_pos()
                 self.check_mouse_events(mouse_pos)
-
-        self.check_point()
 
     def _check_keydown_events(self, event):
         """Check for keydown events"""
@@ -92,10 +94,10 @@ class Pong:
             self.player2.moving_left = True
         if event.key == pygame.K_SPACE:
             self.game_active = True
-        # if event.key == pygame.K_p:
-            # self.create_power_up()
-        # if event.key == pygame.K_o:
-            # self.remove_power_up()
+        if event.key == pygame.K_p:
+            self.create_power_up()
+        if event.key == pygame.K_o:
+            self.remove_power_up()
 
     def _check_keyup_events(self, event):
         """Check for keyup events"""
@@ -145,6 +147,15 @@ class Pong:
 
     def check_power_up(self):
         """Check to see if the ball collided with a power up"""
+        for power_up in self.power_ups:
+            if self.ball.rect.colliderect(power_up.rect):
+                self.remove_power_up()
+                if self.settings.ball_direction_y > 0:
+                    self.settings.ball_speed_x, self.settings.ball_speed_y = 1, 1
+                    self.settings.player_1_speed = 1
+                elif self.settings.ball_direction_y < 0:
+                    self.settings.ball_speed_x, self.settings.ball_speed_y = 1, 1
+                    self.settings.player_2_speed = 1
 
     def create_power_up(self):
         """Create a power up and add it to the group"""

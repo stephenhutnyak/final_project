@@ -37,9 +37,9 @@ class Player1:
     def update(self):
         """Update the x value of the player"""
         if self.moving_right and self.rect.right < self.screen_rect.right:
-            self.x += self.settings.player_speed
+            self.x += self.settings.player_1_speed
         if self.moving_left and self.rect.left > 0:
-            self.x -= self.settings.player_speed
+            self.x -= self.settings.player_1_speed
 
         # Update rect object from self.x
         self.rect.x = self.x
@@ -76,9 +76,9 @@ class Player2:
 
     def update(self):
         if self.moving_right and self.rect.right < self.screen_rect.right:
-            self.x += self.settings.player_speed
+            self.x += self.settings.player_2_speed
         if self.moving_left and self.rect.left > 0:
-            self.x -= self.settings.player_speed
+            self.x -= self.settings.player_2_speed
 
         # Update rect object form self.x
         self.rect.x = self.x

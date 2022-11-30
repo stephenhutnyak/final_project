@@ -15,7 +15,8 @@ class Settings:
         self.bg_color = (15, 15, 15)
 
         # Player settings
-        self.player_speed = 0.5
+        self.player_1_speed = 0.5
+        self.player_2_speed = 0.5
 
         # Ball settings
         self.ball_speed_y = 0.5
@@ -26,8 +27,6 @@ class Settings:
         # Powerup settings
         self.power_up_width = 50
         self.power_up_height = 50
-        self.power_up_x = random.randint(0, self.window_width)
-        self.power_up_y = random.randint(100, self.window_height - 100)
 
         # Sounds
         self.player_bounce_sound = pygame.mixer.Sound("sounds/Impact/impactGeneric_light_000.ogg")
