@@ -22,7 +22,7 @@ class Settings:
         self.ball_speed_y = 0.5
         self.ball_speed_x = 0.25
         self.ball_direction_y = 1
-        self.ball_direction_x = random.randint(-1, 1)
+        self.ball_direction_x = 1 # random.randint(-1, 1)
 
         # Powerup settings
         self.power_up_width = 50
@@ -34,4 +34,10 @@ class Settings:
         self.point_sound = pygame.mixer.Sound("sounds/Voice/you_lose.ogg")
 
 # Helping Hand
-    # 11/17 Helped Thomas Bui with centering image.rect on another image.rect
+
+    # Me
+        # 11/17 Helped Thomas Bui with centering image.rect on another image.rect
+        # 12/1 Helped Thomas with changing the screen upon victory
+
+    # Thomas
+        # 12/1 Helped me track score

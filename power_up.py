@@ -17,7 +17,7 @@ class PowerUp(Sprite):
         self.rect = pygame.Rect(0, 0, self.settings.power_up_width,
                                 self.settings.power_up_height)
         self.rect.center = (random.randint(0, self.settings.window_width),
-                            random.randint(100, self.settings.window_height - 100))
+                            random.randint(300, self.settings.window_height - 300))
 
         # Store the position as a decimal value
         self.x = float(self.rect.x)

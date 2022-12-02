@@ -6,6 +6,7 @@ from players import Player1, Player2
 from ball import Ball
 from button import PlayButton
 from power_up import PowerUp
+from scoreboard import ScoreboardPlayer1, ScoreboardPlayer2
 
 
 # Main game class
@@ -37,6 +38,10 @@ class Pong:
         # Power ups
         self.power_ups = pygame.sprite.Group()
 
+        # Scoreboard
+        self.sb1 = ScoreboardPlayer1(self)
+        self.sb2 = ScoreboardPlayer2(self)
+
     def run_game(self):
         """The main game loop"""
 
@@ -52,6 +57,8 @@ class Pong:
     def _update_screen(self):
         """Everything updating the screen"""
         self.screen.fill(self.settings.bg_color)
+        self.sb1.draw_score()
+        self.sb2.draw_score()
         self.player1.blitme()
         self.player2.blitme()
         self.ball.blitme()
@@ -118,11 +125,21 @@ class Pong:
         """Start a new game when the players click Play"""
         if self.play_button.rect.collidepoint(mouse_pos):
             self.game_active = True
+            self.sb1.prep_score()
+            self.sb2.prep_score()
 
     def check_point(self):
         """Check to see if the ball leaves the screen"""
         if self.ball.rect.top > self.screen_rect.bottom or \
                 self.ball.rect.bottom < self.screen_rect.top:
+
+            if self.ball.rect.top > self.screen_rect.bottom:
+                self.sb1.score += 1
+                self.sb1.prep_score()
+
+            elif self.ball.rect.bottom < self.screen_rect.top:
+                self.sb2.score += 1
+                self.sb2.prep_score()
 
             pygame.mixer.Sound.play(self.settings.point_sound)
 
@@ -141,6 +158,9 @@ class Pong:
             self.player2.x = float(self.player2.rect.x)
             self.player2.y = float(self.player2.rect.y)
 
+            # Power Up
+            self.end_power_up_ability()
+
             pygame.time.wait(500)
 
             self.game_active = False
@@ -150,12 +170,17 @@ class Pong:
         for power_up in self.power_ups:
             if self.ball.rect.colliderect(power_up.rect):
                 self.remove_power_up()
-                if self.settings.ball_direction_y > 0:
-                    self.settings.ball_speed_x, self.settings.ball_speed_y = 1, 1
+                if self.settings.ball_direction_y < 0:
+                    self.settings.ball_speed_x, self.settings.ball_speed_y = 0.5, 0.75
                     self.settings.player_1_speed = 1
-                elif self.settings.ball_direction_y < 0:
-                    self.settings.ball_speed_x, self.settings.ball_speed_y = 1, 1
+                elif self.settings.ball_direction_y > 0:
+                    self.settings.ball_speed_x, self.settings.ball_speed_y = 0.5, 0.75
                     self.settings.player_2_speed = 1
+
+    def end_power_up_ability(self):
+        """End the powerups effects"""
+        self.settings.ball_speed_x, self.settings.ball_speed_y = 0.25, 0.5
+        self.settings.player_1_speed, self.settings.player_2_speed = 0.5, 0.5
 
     def create_power_up(self):
         """Create a power up and add it to the group"""
