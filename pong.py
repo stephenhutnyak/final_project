@@ -42,11 +42,17 @@ class Pong:
         self.sb1 = ScoreboardPlayer1(self)
         self.sb2 = ScoreboardPlayer2(self)
 
+        # Music
+        self.music = pygame.mixer.Sound("sounds/Music/8-bit.mp3")
+        self.music.set_volume(1)
+
     def run_game(self):
         """The main game loop"""
 
         while True:
+            self.music.play()
             self._check_events()
+            # self.end_game()
 
             if self.game_active:
                 self.player1.update()
@@ -134,33 +140,34 @@ class Pong:
                 self.ball.rect.bottom < self.screen_rect.top:
 
             if self.ball.rect.top > self.screen_rect.bottom:
-                self.sb1.score += 1
-                self.sb1.prep_score()
-
-            elif self.ball.rect.bottom < self.screen_rect.top:
                 self.sb2.score += 1
                 self.sb2.prep_score()
 
+            elif self.ball.rect.bottom < self.screen_rect.top:
+                self.sb1.score += 1
+                self.sb1.prep_score()
+
             pygame.mixer.Sound.play(self.settings.point_sound)
 
-            # Ball
+            # Reset Ball
             self.ball.rect.center = self.screen_rect.center
             self.ball.y = float(self.ball.rect.y)
             self.ball.x = float(self.ball.rect.x)
 
-            # Player1
+            # Reset Player1
             self.player1.rect.midbottom = self.screen_rect.midbottom
             self.player1.x = float(self.player1.rect.x)
             self.player1.y = float(self.player1.rect.y)
 
-            # Player2
+            # Reset Player2
             self.player2.rect.midtop = self.screen_rect.midtop
             self.player2.x = float(self.player2.rect.x)
             self.player2.y = float(self.player2.rect.y)
 
-            # Power Up
+            # Reset Power Up
             self.end_power_up_ability()
 
+            # Pause the game for a little before starting again
             pygame.time.wait(500)
 
             self.game_active = False
@@ -191,6 +198,23 @@ class Pong:
         """Update the powerups and delete when they collide with the ball"""
         for power_up in self.power_ups.copy():
             self.power_ups.remove(power_up)
+
+    def end_game(self):
+        """Show the winner after 10 points is reached"""
+        font = pygame.font.SysFont(None, 100)
+        text1 = font.render("Blue Wins!", True, (0, 0, 255))
+        text2 = font.render("Red Wins!", True, (255, 0, 0))
+        if self.sb1.score == 1:
+            pygame.time.delay(1000)
+
+            self.screen.fill((0, 255, 0))
+            text1_rect = text1.get_rect()
+            text1_rect.center = self.screen_rect.center
+            self.screen.blit(text1, text1_rect)
+
+            self.game_active = False
+
+
 
 
 if __name__ == '__main__':

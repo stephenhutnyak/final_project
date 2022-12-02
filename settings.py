@@ -37,7 +37,10 @@ class Settings:
 
     # Me
         # 11/17 Helped Thomas Bui with centering image.rect on another image.rect
+        # 11/29 Helped Thomas figure out how to rotate cue stick around cue ball
         # 12/1 Helped Thomas with changing the screen upon victory
 
     # Thomas
         # 12/1 Helped me track score
+        # 12/1 Helped me display score on screen
+        # 12/1 Helped me show game over screen

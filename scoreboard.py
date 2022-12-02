@@ -31,6 +31,7 @@ class ScoreboardPlayer1:
         """Draw the score to the screen"""
         self.screen.blit(self.score_image, self.score_rect)
 
+
 class ScoreboardPlayer2:
     """A class to manage the score for player 2"""
     def __init__(self, pong_game):
