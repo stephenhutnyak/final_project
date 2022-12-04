@@ -12,7 +12,7 @@ class Player1:
 
         # Load the player image
         self.image = pygame.image.load("images/PNG/Blue/characterBlue (1).png")
-        self.image = pygame.transform.scale(self.image, (40, 100))
+        self.image = pygame.transform.scale(self.image, self.settings.player_1_size)
         self.image = pygame.transform.rotate(self.image, 90)
         self.rect = self.image.get_rect()
 
@@ -56,7 +56,7 @@ class Player2:
 
         # Load the player image
         self.image = pygame.image.load("images/PNG/Red/characterRed (1).png")
-        self.image = pygame.transform.scale(self.image, (40, 100))
+        self.image = pygame.transform.scale(self.image, self.settings.player_2_size)
         self.image = pygame.transform.rotate(self.image, -90)
         self.rect = self.image.get_rect()
 

@@ -12,7 +12,7 @@ class ScoreboardPlayer1:
 
         # Font settings for scoring info
         self.color = (255, 255, 255)
-        self.font = pygame.font.SysFont(None, 100)
+        self.font = pygame.font.SysFont("Impact", 100)
 
         # Prepare the initial score image
         self.prep_score()
@@ -22,7 +22,7 @@ class ScoreboardPlayer1:
         score_string = str(self.score)
         self.score_image = self.font.render(score_string, True, self.color, self.settings.bg_color)
 
-        # Display the score at the top left of the string
+        # Display the score at the bottom right of the screen
         self.score_rect = self.score_image.get_rect()
         self.score_rect.right = self.screen_rect.right - 20
         self.score_rect.bottom = self.screen_rect.bottom - 20
@@ -42,7 +42,7 @@ class ScoreboardPlayer2:
 
         # Font settings for scoring info
         self.color = (255, 255, 255)
-        self.font = pygame.font.SysFont(None, 100)
+        self.font = pygame.font.SysFont("Impact", 100)
 
         # Prepare the initial score image
         self.prep_score()
@@ -52,7 +52,7 @@ class ScoreboardPlayer2:
         score_string = str(self.score)
         self.score_image = self.font.render(score_string, True, self.color, self.settings.bg_color)
 
-        # Display the score at the top left of the string
+        # Display the score at the top right of the screen
         self.score_rect = self.score_image.get_rect()
         self.score_rect.right = self.screen_rect.right - 20
         self.score_rect.top = self.screen_rect.top + 20

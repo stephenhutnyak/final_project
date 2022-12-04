@@ -39,7 +39,7 @@ class Ball:
         elif self.rect.colliderect(player_rect_list[1]):
             return True
 
-    # def check_collision_loc_player(self):
+    # def check_collision_loc_player(self): FOR LATER
         # """Check where on the player the ball bounces"""
         # if self.rect.bottom == self.
 
@@ -65,8 +65,6 @@ class Ball:
         """Change the direction of the ball"""
         if self.check_collision_player(player_rect_list):
             self.settings.ball_direction_y *= -1
-            pygame.mixer.Sound.play(self.settings.player_bounce_sound)
 
         if self.check_collision_wall():
             self.settings.ball_direction_x *= -1
-            pygame.mixer.Sound.play(self.settings.wall_bounce_sound)

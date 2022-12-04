@@ -44,7 +44,6 @@ class Pong:
 
         # Music
         self.music = pygame.mixer.Sound("sounds/Music/8-bit.mp3")
-        self.music.set_volume(1)
 
     def run_game(self):
         """The main game loop"""
@@ -52,7 +51,6 @@ class Pong:
         while True:
             self.music.play()
             self._check_events()
-            # self.end_game()
 
             if self.game_active:
                 self.player1.update()
@@ -131,23 +129,25 @@ class Pong:
         """Start a new game when the players click Play"""
         if self.play_button.rect.collidepoint(mouse_pos):
             self.game_active = True
+
+            # Prepare the scoreboards
             self.sb1.prep_score()
             self.sb2.prep_score()
 
     def check_point(self):
-        """Check to see if the ball leaves the screen"""
+        """Check to see if and where the ball leaves the screen"""
         if self.ball.rect.top > self.screen_rect.bottom or \
                 self.ball.rect.bottom < self.screen_rect.top:
 
+            # Player 2 point
             if self.ball.rect.top > self.screen_rect.bottom:
                 self.sb2.score += 1
                 self.sb2.prep_score()
 
+            # Player 1 point
             elif self.ball.rect.bottom < self.screen_rect.top:
                 self.sb1.score += 1
                 self.sb1.prep_score()
-
-            pygame.mixer.Sound.play(self.settings.point_sound)
 
             # Reset Ball
             self.ball.rect.center = self.screen_rect.center
@@ -190,7 +190,7 @@ class Pong:
         self.settings.player_1_speed, self.settings.player_2_speed = 0.5, 0.5
 
     def create_power_up(self):
-        """Create a power up and add it to the group"""
+        """Create a speed power up and add it to the group"""
         new_power_up = PowerUp(self)
         self.power_ups.add(new_power_up)
 
@@ -199,9 +199,10 @@ class Pong:
         for power_up in self.power_ups.copy():
             self.power_ups.remove(power_up)
 
+# Not ready yet
     def end_game(self):
-        """Show the winner after 10 points is reached"""
-        font = pygame.font.SysFont(None, 100)
+        """Show the winner after 5 points is reached"""
+        font = pygame.font.SysFont("Impact", 100)
         text1 = font.render("Blue Wins!", True, (0, 0, 255))
         text2 = font.render("Red Wins!", True, (255, 0, 0))
         if self.sb1.score == 1:
@@ -213,8 +214,6 @@ class Pong:
             self.screen.blit(text1, text1_rect)
 
             self.game_active = False
-
-
 
 
 if __name__ == '__main__':
